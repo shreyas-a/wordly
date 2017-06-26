@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+
+  "name": "Wordly",
+  "description": "Store definitions easily as you browse the web.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Wordly"
+  },
+
+  "content_scripts": [{
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content-script.js"]
+  }],
+  "permissions": [
+    "activeTab"
+  ]
+}
