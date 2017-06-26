@@ -3,18 +3,32 @@
 
   "name": "Wordly",
   "description": "Store definitions easily as you browse the web.",
-  "version": "1.0",
+  "version": "0.1",
 
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "64": "icons/icon-64.png"
+  },
+
+  // Popup
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html",
+    "default_icon": "icons/icon-64.png",
+    "default_popup": "popup/popup.html",
     "default_title": "Wordly"
   },
 
+  // Behind webpage
   "content_scripts": [{
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content-script.js"]
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["main.js"]
   }],
+
+  // Background
+  "background": {
+    "scripts": ["background.js"]
+  },
+
   "permissions": [
     "activeTab"
   ]
