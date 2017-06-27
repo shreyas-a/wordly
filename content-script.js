@@ -7,13 +7,7 @@ document.addEventListener("mouseup", function(event) {
   if (selectedNode.textContent && selectedNode.textContent.length) {
     // Ssending message to background
     chrome.runtime.sendMessage({
-      type: "notification",
-      options: {
-        type: "basic",
-        iconUrl: chrome.extension.getURL("icons/icon-128.png"),
-        title: "Wordly",
-        message: selectedNode.textContent
-      }
+      word: selectedNode.textContent
     });
   }
 });
