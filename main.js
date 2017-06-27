@@ -1,9 +1,10 @@
-var count = 0;
+var selectedNode;
 
-document.addEventListener("click", function(event) {
-  count += 1;
+document.addEventListener("mouseup", function(event) {
+  var range = window.getSelection().getRangeAt(0);
+  selectedNode = range.cloneContents();
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  sendResponse({ count: count });
+  sendResponse({ selectedText: selectedNode.textContent });
 });
