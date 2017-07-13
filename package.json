@@ -1,0 +1,26 @@
+{
+  "name": "wordly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.2.0",
+    "prettier": "^1.5.2"
+  },
+  "scripts": {
+    "eslint": "eslint --init",
+    "prettier": "prettier --single-quote --trailing-comma es5 --print-width 120 --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/shreyas-a/wordly.git"
+  },
+  "keywords": [],
+  "author": "Shreyas Agarkar <https://twitter.com/shreyas_a>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/shreyas-a/wordly/issues"
+  },
+  "homepage": "https://gitlab.com/shreyas-a/wordly#README"
+}

@@ -1,12 +1,12 @@
-var word, time;
-clickCount = 0;
+var word,
+  clickCount = 0;
 
 function sendMessage(event) {
   // Sending message to background
   chrome.runtime.sendMessage({
     word: word,
     x: event.clientX,
-    y: event.clientY
+    y: event.clientY,
   });
 }
 
@@ -17,18 +17,17 @@ function singleClick(event) {
 
 function doubleClick(event) {
   var range = window.getSelection().getRangeAt(0);
-  selectedNode = range.cloneContents();
+  var selectedNode = range.cloneContents();
 
   if (selectedNode.textContent && selectedNode.textContent.length) {
-    word = selectedNode.textContent.split(" ")[0];
+    word = selectedNode.textContent.split(' ')[0];
   } else {
     word = null;
   }
   sendMessage(event);
 }
 
-document.addEventListener("click", function(event) {
-  debugger;
+document.addEventListener('click', function(event) {
   clickCount++;
   if (clickCount === 1) {
     singleClickTimer = setTimeout(function() {
