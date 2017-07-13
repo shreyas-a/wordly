@@ -12,8 +12,12 @@ document.addEventListener('click', function(event) {
 
   chrome.runtime.sendMessage({
     word: word,
-    x: event.clientX,
-    y: event.clientY,
+    x:
+      event.clientX +
+      (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft),
+    y:
+      event.clientY +
+      (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop),
   });
 });
 
