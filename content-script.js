@@ -1,21 +1,6 @@
-var word,
-  clickCount = 0;
+var word;
 
-function sendMessage(event) {
-  // Sending message to background
-  chrome.runtime.sendMessage({
-    word: word,
-    x: event.clientX,
-    y: event.clientY,
-  });
-}
-
-function singleClick(event) {
-  word = null;
-  sendMessage(event);
-}
-
-function doubleClick(event) {
+document.addEventListener('click', function(event) {
   var range = window.getSelection().getRangeAt(0);
   var selectedNode = range.cloneContents();
 
@@ -24,21 +9,12 @@ function doubleClick(event) {
   } else {
     word = null;
   }
-  sendMessage(event);
-}
 
-document.addEventListener('click', function(event) {
-  clickCount++;
-  if (clickCount === 1) {
-    singleClickTimer = setTimeout(function() {
-      clickCount = 0;
-      singleClick(event);
-    }, 400);
-  } else if (clickCount === 2) {
-    clearTimeout(singleClickTimer);
-    clickCount = 0;
-    doubleClick(event);
-  }
+  chrome.runtime.sendMessage({
+    word: word,
+    x: event.clientX,
+    y: event.clientY,
+  });
 });
 
 // Listening messages from extention (popup) or background
