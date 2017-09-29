@@ -1,17 +1,17 @@
-var word;
+let word;
 
-document.addEventListener('click', function(event) {
-  var range = window.getSelection().getRangeAt(0);
-  var selectedNode = range.cloneContents();
+document.addEventListener('click', event => {
+  const range = window.getSelection().getRangeAt(0);
+  const selectedNode = range.cloneContents();
 
   if (selectedNode.textContent && selectedNode.textContent.length) {
-    word = selectedNode.textContent.split(' ')[0];
+    [word] = selectedNode.textContent.split(' ');
   } else {
     word = null;
   }
 
   chrome.runtime.sendMessage({
-    word: word,
+    word,
     x:
       event.clientX +
       (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft),
@@ -22,6 +22,6 @@ document.addEventListener('click', function(event) {
 });
 
 // Listening messages from extention (popup) or background
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   sendResponse({ selectedText: word });
 });
