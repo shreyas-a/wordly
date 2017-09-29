@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "provider": "Oxford University Press"
+    },
+    "results": [
+        {
+            "id": "recognitions",
+            "language": "en",
+            "lexicalEntries": [
+                {
+                    "grammaticalFeatures": [
+                        {
+                            "text": "Plural",
+                            "type": "Number"
+                        }
+                    ],
+                    "inflectionOf": [
+                        {
+                            "id": "recognition",
+                            "text": "recognition"
+                        }
+                    ],
+                    "language": "en",
+                    "lexicalCategory": "Noun",
+                    "text": "recognitions"
+                }
+            ],
+            "word": "recognitions"
+        }
+    ]
+}

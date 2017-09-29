@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "provider": "Oxford University Press"
+  },
+  "results": [
+    {
+      "id": "recognition",
+      "language": "en",
+      "lexicalEntries": [
+        {
+          "entries": [
+            {
+              "etymologies": [
+                "late 15th century (denoting the acknowledgement of a service): from Latin recognitio(n-), from the verb recognoscere ‘know again, recall to mind’ (see recognize)"
+              ],
+              "grammaticalFeatures": [
+                {
+                  "text": "Mass",
+                  "type": "Countability"
+                },
+                {
+                  "text": "Singular",
+                  "type": "Number"
+                }
+              ],
+              "homographNumber": "000",
+              "senses": [
+                {
+                  "definitions": [
+                    "identification of someone or something or person from previous encounters or knowledge"
+                  ],
+                  "examples": [
+                    {
+                      "text": "she saw him pass by without a sign of recognition"
+                    }
+                  ],
+                  "id": "m_en_gbus0851300.008"
+                },
+                {
+                  "definitions": [
+                    "acknowledgement of the existence, validity, or legality of something"
+                  ],
+                  "examples": [
+                    {
+                      "text": "the unions must receive proper recognition"
+                    }
+                  ],
+                  "id": "m_en_gbus0851300.010",
+                  "subsenses": [
+                    {
+                      "definitions": [
+                        "appreciation or acclaim for an achievement, service, or ability"
+                      ],
+                      "examples": [
+                        {
+                          "text": "his work was slow to gain recognition"
+                        },
+                        {
+                          "text": "she received the award in recognition of her human rights work"
+                        }
+                      ],
+                      "id": "m_en_gbus0851300.011"
+                    },
+                    {
+                      "definitions": [
+                        "formal acknowledgement by a country that another political entity fulfils the conditions of statehood and is eligible to be dealt with as a member of the international community"
+                      ],
+                      "domains": [
+                        "Politics"
+                      ],
+                      "examples": [
+                        {
+                          "text": "they are granting full recognition to the republic"
+                        }
+                      ],
+                      "id": "m_en_gbus0851300.012",
+                      "variantForms": [
+                        {
+                          "text": "diplomatic recognition"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "language": "en",
+          "lexicalCategory": "Noun",
+          "pronunciations": [
+            {
+              "audioFile": "http://audio.oxforddictionaries.com/en/mp3/recognition_gb_1.mp3",
+              "dialects": [
+                "British English"
+              ],
+              "phoneticNotation": "IPA",
+              "phoneticSpelling": "rɛkəɡˈnɪʃ(ə)n"
+            }
+          ],
+          "text": "recognition"
+        }
+      ],
+      "type": "headword",
+      "word": "recognition"
+    }
+  ]
+}
