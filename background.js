@@ -4,18 +4,18 @@ const appKey = '4a16c9745036f8529e7b69f59634b696';
 
 const headers = new Headers({
   Accept: 'application/json',
-  appId,
-  appKey,
+  app_id: appId,
+  app_key: appKey,
 });
 
 // Listening all messages
 chrome.runtime.onMessage.addListener(request => {
   let code = '';
-  let meaning = 'Defenition not found';
+  let meaning = 'defenition not found';
 
   function sendCode(finalCode) {
     chrome.tabs.executeScript(null, {
-      finalCode,
+      code: finalCode,
     });
   }
 
@@ -25,19 +25,11 @@ chrome.runtime.onMessage.addListener(request => {
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
+      'd.setAttribute("class","wordly_popup")',
       `d.innerHTML="${word} - ${meaning}"`,
-      `${'d.setAttribute("style", "border: 1px solid #999;top: '}${request.y}px;` +
-        `left: ${request.x}px;` +
-        'border-radius: 4px;' +
-        'box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);' +
-        'background-color: #d1f3ff;' +
-        'font-size: 14px;' +
-        'line-height: normal;' +
-        'padding: 9px;' +
-        'position: absolute;' +
-        'z-index: 99999;' +
-        'width: 300px;");',
-      'document.body.appendChild(d);',
+      `${'d.setAttribute("style", "top: '}${request.y}px;` +
+        `left: ${request.x}px;");` +
+        'document.body.appendChild(d);',
     ].join('\n');
     isShown = true;
     sendCode(code);
@@ -53,45 +45,46 @@ chrome.runtime.onMessage.addListener(request => {
       })
     )
       .then(res => {
-        if (res && res.status !== 404) {
+        if (res && res.status === 200) {
           // Word exists
           return res.json();
         }
 
         // Word doesn't exist
         // Checking related words for the word
+        console.log('Searching for related words');
         return fetch(
           new Request(`${url}inflections/en/${request.word}`, {
             headers: new Headers(headers),
           })
         )
           .then(similarWordsResponse => {
-            if (similarWordsResponse && similarWordsResponse.status !== 404) {
+            if (similarWordsResponse && similarWordsResponse.status === 200) {
               return similarWordsResponse.json();
             }
             return Promise.reject();
           })
-          .then(relatedMeaningResponse => {
+          .then(relatedListResponse => {
             // Search meaning for related word
             if (
-              relatedMeaningResponse &&
-              relatedMeaningResponse.results &&
-              relatedMeaningResponse.results.length &&
-              relatedMeaningResponse.results[0].lexicalEntries &&
-              relatedMeaningResponse.results[0].lexicalEntries.length &&
-              relatedMeaningResponse.results[0].lexicalEntries[0].inflectionOf.length &&
-              relatedMeaningResponse.results[0].lexicalEntries[0].inflectionOf[0].id
+              relatedListResponse &&
+              relatedListResponse.results &&
+              relatedListResponse.results.length &&
+              relatedListResponse.results[0].lexicalEntries &&
+              relatedListResponse.results[0].lexicalEntries.length &&
+              relatedListResponse.results[0].lexicalEntries[0].inflectionOf.length &&
+              relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id
             ) {
-              console.log('Searching for: ', relatedMeaningResponse.results[0].lexicalEntries[0].inflectionOf[0].id);
+              console.log(
+                'Searching meaning for: ',
+                relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id
+              );
 
               return fetch(
-                new Request(
-                  `${url}entries/en/${relatedMeaningResponse.results[0].lexicalEntries[0].inflectionOf[0].id}`,
-                  {
-                    headers: new Headers(headers),
-                  }
-                )
-              ).then(relatedMeaningJSONResponse => relatedMeaningJSONResponse.json());
+                new Request(`${url}entries/en/${relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id}`, {
+                  headers: new Headers(headers),
+                })
+              ).then(relatedMeaningResponse => relatedMeaningResponse.json());
             }
 
             // No related word found
@@ -109,17 +102,23 @@ chrome.runtime.onMessage.addListener(request => {
           out.results[0].lexicalEntries[0].entries &&
           out.results[0].lexicalEntries[0].entries.length &&
           out.results[0].lexicalEntries[0].entries[0].senses &&
-          out.results[0].lexicalEntries[0].entries[0].senses.length &&
-          out.results[0].lexicalEntries[0].entries[0].senses[0].definitions &&
-          out.results[0].lexicalEntries[0].entries[0].senses[0].definitions.length &&
-          out.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0]
+          out.results[0].lexicalEntries[0].entries[0].senses.length
         ) {
-          [meaning] = out.results[0].lexicalEntries[0].entries[0].senses[0].definitions;
+          if (
+            out.results[0].lexicalEntries[0].entries[0].senses[0].definitions &&
+            out.results[0].lexicalEntries[0].entries[0].senses[0].definitions.length
+          ) {
+            [meaning] = out.results[0].lexicalEntries[0].entries[0].senses[0].definitions;
+          } else if (
+            out.results[0].lexicalEntries[0].entries[0].senses[0].crossReferenceMarkers &&
+            out.results[0].lexicalEntries[0].entries[0].senses[0].crossReferenceMarkers.length
+          ) {
+            [meaning] = out.results[0].lexicalEntries[0].entries[0].senses[0].crossReferenceMarkers;
+          }
         }
         showMeaning();
       })
-      .catch(err => {
-        console.error(err);
+      .catch(() => {
         showMeaning();
       });
   } else {

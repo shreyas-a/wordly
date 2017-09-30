@@ -1,35 +1,41 @@
 {
   "manifest_version": 2,
-
   "name": "Wordly",
   "description": "Store definitions easily as you browse the web.",
   "version": "0.1",
-
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
     "64": "icons/icon-64.png",
     "128": "icons/icon-128.png"
   },
-
   // Background
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
-
   // Popup
   "browser_action": {
     "default_icon": "icons/icon-64.png",
     "default_popup": "popup/popup.html",
     "default_title": "Wordly"
   },
-
   // Behind webpage
-  "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*"],
-    "js": ["content-script.js"]
-  }],
-
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "css": [
+        "style.css"
+      ]
+    }
+  ],
   "permissions": [
     "activeTab",
     "tabs",
