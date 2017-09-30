@@ -2,10 +2,17 @@ let isShown = false;
 const appId = '49a3467d';
 const appKey = '4a16c9745036f8529e7b69f59634b696';
 
+let wordsList = [];
+
 const headers = new Headers({
   Accept: 'application/json',
   app_id: appId,
   app_key: appKey,
+});
+
+// Getting all saved words
+chrome.storage.sync.get(stores => {
+  wordsList = stores.wordly;
 });
 
 // Listening all messages
@@ -25,7 +32,7 @@ chrome.runtime.onMessage.addListener(request => {
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
-      'd.setAttribute("class","wordly_popup")',
+      'd.setAttribute("class","wordly_meaning")',
       `d.innerHTML="${word} - ${meaning}"`,
       `${'d.setAttribute("style", "top: '}${request.y}px;` +
         `left: ${request.x}px;");` +
@@ -33,6 +40,15 @@ chrome.runtime.onMessage.addListener(request => {
     ].join('\n');
     isShown = true;
     sendCode(code);
+
+    if (wordsList && wordsList.length) {
+      wordsList.push({ word, meaning });
+    } else {
+      wordsList = [];
+      wordsList.push({ word, meaning });
+    }
+
+    chrome.storage.sync.set({ wordly: wordsList }, () => {});
   }
 
   if (request.word && !isShown) {
@@ -52,7 +68,6 @@ chrome.runtime.onMessage.addListener(request => {
 
         // Word doesn't exist
         // Checking related words for the word
-        console.log('Searching for related words');
         return fetch(
           new Request(`${url}inflections/en/${request.word}`, {
             headers: new Headers(headers),
@@ -75,11 +90,6 @@ chrome.runtime.onMessage.addListener(request => {
               relatedListResponse.results[0].lexicalEntries[0].inflectionOf.length &&
               relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id
             ) {
-              console.log(
-                'Searching meaning for: ',
-                relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id
-              );
-
               return fetch(
                 new Request(`${url}entries/en/${relatedListResponse.results[0].lexicalEntries[0].inflectionOf[0].id}`, {
                   headers: new Headers(headers),

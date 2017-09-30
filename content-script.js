@@ -1,6 +1,7 @@
 let word;
 
 document.addEventListener('click', event => {
+  // TODO: Failed to execute 'getRangeAt' on 'Selection': 0 is not a valid index.
   const range = window.getSelection().getRangeAt(0);
   const selectedNode = range.cloneContents();
 
@@ -22,6 +23,11 @@ document.addEventListener('click', event => {
 });
 
 // Listening messages from extention (popup) or background
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  sendResponse({ selectedText: word });
+chrome.extension.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.method && request.method === 'wordly') {
+    chrome.storage.sync.get({ wordly: [] }, stores => {
+      sendResponse({ wordly: stores.wordly });
+    });
+  }
+  return true;
 });
