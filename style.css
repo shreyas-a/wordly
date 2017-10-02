@@ -1,18 +1,3 @@
-<<<<<<< 332468252725138bc758a7bf4bd74e86861a25ac
-.wordly_meaning{
-  position: absolute;
-  color: #5F5F5F;
-  font-family: serif;
-  background-color: #d1f3ff;
-  width: 300px;
-  padding: 9px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  font-size: 14px;
-  line-height: normal;
-  z-index: 99999;
-}
-=======
 @import url('popup/css/open-font.css');
 
 .wordly_meaning {
@@ -41,4 +26,3 @@
   top: -11px;
   z-index: 999999;
 }
->>>>>>> css Styling
