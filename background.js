@@ -18,7 +18,7 @@ chrome.storage.sync.get(stores => {
 // Listening all messages
 chrome.runtime.onMessage.addListener(request => {
   let code = '';
-  let meaning = 'defenition not found';
+  let meaning = 'Definition not found';
 
   function sendCode(finalCode) {
     chrome.tabs.executeScript(null, {
@@ -34,8 +34,8 @@ chrome.runtime.onMessage.addListener(request => {
       'd.setAttribute("id","wordly")',
       'd.setAttribute("class","wordly_meaning")',
       `d.innerHTML="${word} - ${meaning}"`,
-      `${'d.setAttribute("style", "top: '}${request.y}px;` +
-        `left: ${request.x}px;");` +
+      `${'d.setAttribute("style", "top: '}${request.y + 25}px;` +
+        `left: ${request.x - 25}px;");` +
         'document.body.appendChild(d);',
     ].join('\n');
     isShown = true;
