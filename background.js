@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(request => {
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
       'd.setAttribute("class","wordly_meaning")',
-      `d.innerHTML="${word} - ${meaning}"`,
+      `d.innerHTML="<span>${word}</span>${meaning}"`,
       `${'d.setAttribute("style", "top: '}${request.y + 25}px;` +
         `left: ${request.x - 25}px;");` +
         'document.body.appendChild(d);',
