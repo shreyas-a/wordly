@@ -12,7 +12,7 @@ A chrome extention to improve your vocabulary in a easiest possible way. All it 
 
 ## Contribution
   - Clone this project & commit your changes.
-  - Submit the PR ❤︎
+  - Submit the PR ❤︎
 
 > If you got anything to say, find me on twitter [@shreyas_a](https://twitter.com/shreyas_a).
 
