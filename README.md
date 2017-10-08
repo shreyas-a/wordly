@@ -10,19 +10,9 @@ A chrome extention to improve your vocabulary in a easiest possible way. All it 
  4. Select project root folder
  5. Rock & Roll
 
-## TODOs
-
- - ~~Beautification~~.
- - Show loading popup while getting meaning from API.
- - Refine double click events (avoid text selection).
- - Random word reminder notification.
- - Lazy loading words if list goes more than 10 words.
- - Ability to remove words from the list.
- - If similar word clicked, fetch from existing list instead of making an API call. Also move the word at the top of the list.
-
-## Support
-
-If you believe this can help people in day-to-day web experience, do contribute! Let's contribute to the beautiful open source community.
+## Contribution
+  - Clone this project & commit your changes.
+  - Submit the PR ❤︎
 
 > If you got anything to say, find me on twitter [@shreyas_a](https://twitter.com/shreyas_a).
 
