@@ -12,7 +12,7 @@ A chrome extention to improve your vocabulary in a easiest possible way. All it 
 
 ## TODOs
 
- - Beautification.
+ - ~~Beautification~~.
  - Show loading popup while getting meaning from API.
  - Refine double click events (avoid text selection).
  - Random word reminder notification.
