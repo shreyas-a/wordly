@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           const newLI = document.createElement('li');
           newLI.appendChild(document.createTextNode('No words'));
+          document.getElementById('wordlyWordsList').innerHTML = '';
           document.getElementById('wordlyWordsList').appendChild(newLI);
         }
       });
