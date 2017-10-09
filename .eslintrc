@@ -7,7 +7,19 @@
     "prettier"
   ],
   "rules": {
-    "no-console": "warn"
+    "no-console": "off",
+    // Easier to work with other environments (Windows), commits should always be linux-style
+    "linebreak-style": "off",
+    // Allows scope hoisting for functions which improves readability a lot
+    "no-use-before-define": [
+      2,
+      {
+        "functions": false
+      }
+    ],
+    // With no-return-assign & no-param-reassign using Array.reduce() becomes unnecessarily difficult
+    "no-return-assign": "off",
+    "no-param-reassign": "off"
   },
   "globals": {
     "chrome": true
