@@ -26,17 +26,29 @@ chrome.runtime.onMessage.addListener(request => {
     });
   }
 
-  function showMeaning() {
+  function showLoading() {
     const { word } = request;
-
+    const meaningLabel = "<div class='wordly_loader'></div>Loading...";
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
       'd.setAttribute("class","wordly_meaning")',
-      `d.innerHTML="<span>${word}</span>${meaning}"`,
+      `d.innerHTML="<span>${word}</span>${meaningLabel}"`,
       `${'d.setAttribute("style", "top: '}${request.y + 25}px;` +
         `left: ${request.x - 25}px;");` +
         'document.body.appendChild(d);',
+    ].join('\n');
+
+    isShown = true;
+    sendCode(code);
+  }
+
+  function showMeaning() {
+    const { word } = request;
+
+    code = [
+      'var d = document.getElementById("wordly")',
+      `d.innerHTML="<span>${word}</span>${meaning}"`,
     ].join('\n');
     isShown = true;
     sendCode(code);
@@ -52,6 +64,7 @@ chrome.runtime.onMessage.addListener(request => {
   }
 
   if (request.word && !isShown) {
+    showLoading()
     const url = 'https://od-api.oxforddictionaries.com/api/v1/';
 
     // First search meaning for selected word
