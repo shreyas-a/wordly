@@ -74,7 +74,6 @@ chrome.runtime.onMessage.addListener(request => {
 
     // check if already have in local storage or not
     if (wordsDict[request.word] && wordsDict[request.word] !== NOT_FOUND_MEANING) {
-      console.log('Found in local')
       meaning = wordsDict[request.word]
       showMeaning()
       return
