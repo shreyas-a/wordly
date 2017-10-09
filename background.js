@@ -28,12 +28,12 @@ chrome.runtime.onMessage.addListener(request => {
 
   function showLoading() {
     const { word } = request;
-    const meaningLabel = "<div class='wordly_loader'></div>Loading...";
+    const loadingLabel = "<div class='wordly_loader'></div>Loading...";
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
       'd.setAttribute("class","wordly_meaning")',
-      `d.innerHTML="<span>${word}</span>${meaningLabel}"`,
+      `d.innerHTML="<span>${word}</span>${loadingLabel}"`,
       `${'d.setAttribute("style", "top: '}${request.y + 25}px;` +
         `left: ${request.x - 25}px;");` +
         'document.body.appendChild(d);',
