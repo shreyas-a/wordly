@@ -13,6 +13,16 @@ window.addEventListener('DOMContentLoaded', () => {
             // newLI.appendChild(document.createTextNode(`${wordlyItem.word} - ${wordlyItem.meaning}`));
             // document.getElementById('wordlyWordsList').appendChild(newLI);
           });
+
+          // Send a reminder notification every so often.
+          window.setInterval(() => {
+            // Select a random word.
+            const randomIndex = Math.floor(Math.random() * response.wordly.length);
+            const wordlyObj = response.wordly[randomIndex];
+
+            // Send the notification.
+            Notification.send(wordlyObj);
+          }, Notification.Interval);
         } else {
           const newLI = document.createElement('li');
           newLI.appendChild(document.createTextNode('No words'));
