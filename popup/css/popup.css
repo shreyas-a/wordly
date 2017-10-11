@@ -63,7 +63,7 @@ img {
   width: 18px;
   cursor: pointer;
   position: absolute;
-  top: calc(50% - 20px);
+  top: 12px;
   right: 0px;
 }
 
