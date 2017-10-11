@@ -1,11 +1,11 @@
 (() => {
-  const state = {
-    tabId: null
-  };
   const LIST_ELEMENT_ID = 'wordlyWordsList';
   const LAZY_LOAD_LIMIT = 10;
   const LAZY_LOAD_RENDER_SIZE = 5;
   const LAZY_LOAD_THRESHOLD_PX = 100;
+  const state = {
+    tabId: null
+  };
 
   window.addEventListener('DOMContentLoaded', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -117,11 +117,11 @@
   function whenScrollIsNearBottom(callback) {
     let previousScrollTop = 0;
     const directionIsDown = current => current > previousScrollTop
-    const scrollIsNearBottom = current => (current + window.outerHeight) >= (document.body.offsetHeight - LAZY_LOAD_THRESHOLD_PX)
+    const scrollIsNearBottom = (current, element) => (current + window.outerHeight) >= (element.offsetHeight - LAZY_LOAD_THRESHOLD_PX)
 
     document.addEventListener('scroll', () => {
-      const currentScrollTop = document.body.scrollTop;
-      if (directionIsDown(currentScrollTop) && scrollIsNearBottom(currentScrollTop)) {
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      if (directionIsDown(currentScrollTop) && scrollIsNearBottom(currentScrollTop, document.documentElement || document.body)) {
         callback();
       }
       previousScrollTop = currentScrollTop;
