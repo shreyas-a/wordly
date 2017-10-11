@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 - ${wordlyItem.meaning}
               </div>
               <div key="${wordlyItem.word}" class="icon-container">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+                <img src="img/bin.png">
               </div>
             </li>`;
           });
