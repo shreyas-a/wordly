@@ -43,6 +43,16 @@ window.addEventListener('DOMContentLoaded', () => {
               });
             });
           });
+
+          // Send a reminder notification every so often.
+          window.setInterval(() => {
+            // Select a random word.
+            const randomIndex = Math.floor(Math.random() * response.wordly.length);
+            const wordlyObj = response.wordly[randomIndex];
+
+            // Send the notification.
+            Notification.send(wordlyObj);
+          }, Notification.Interval);
         } else {
           document.getElementById('wordlyWordsList').innerHTML = '<li class="no-words">No Words. Start Learning!</li>';
           // const newLI = document.createElement('li');
