@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(request => {
 
   function showLoading() {
     const { word } = request;
-    const loadingLabel = "<div class='wordly_loader'></div>Loading...";
+    const loadingLabel = "<div class='wordly_loader'></div>";
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
@@ -44,7 +44,7 @@ chrome.runtime.onMessage.addListener(request => {
 
     code = [
       'var d = document.getElementById("wordly")',
-      `d.innerHTML="<span>${word}</span>${meaning}"`,
+      `d.innerHTML="<span>${word}</span><div class='word_meaning'>${meaning}</div>"`,
     ].join('\n');
     isShown = true;
     sendCode(code);
