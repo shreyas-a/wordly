@@ -44,10 +44,10 @@ window.addEventListener('DOMContentLoaded', () => {
             });
           });
         } else {
-          const newLI = document.createElement('li');
-          newLI.appendChild(document.createTextNode('No words'));
-          document.getElementById('wordlyWordsList').innerHTML = '';
-          document.getElementById('wordlyWordsList').appendChild(newLI);
+          document.getElementById('wordlyWordsList').innerHTML = '<li class="no-words">No Words. Start Learning!</li>';
+          // const newLI = document.createElement('li');
+          // newLI.appendChild(document.createTextNode('No words'));
+          // document.getElementById('wordlyWordsList').appendChild(newLI);
         }
       });
     }
