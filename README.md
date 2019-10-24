@@ -15,9 +15,3 @@ A chrome extention to improve your vocabulary in a easiest possible way. All it 
   - Submit the PR ❤︎
 
 > If you got anything to say, find me on twitter [@shreyas_a](https://twitter.com/shreyas_a).
-
-## Sponsor
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/xFc3nQ2wJ6dn4kKJ5NCouB5B/shreyas-a/wordly'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/xFc3nQ2wJ6dn4kKJ5NCouB5B/shreyas-a/wordly.svg' />
-</a>

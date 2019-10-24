@@ -3,8 +3,7 @@ const appId = '49a3467d';
 const appKey = '4a16c9745036f8529e7b69f59634b696';
 const NOT_FOUND_MEANING = 'Definition not found';
 
-let wordsList = [];
-let wordsDict = {};
+const wordsDict = {};
 
 const headers = new Headers({
   Accept: 'application/json',
@@ -12,13 +11,14 @@ const headers = new Headers({
   app_key: appKey,
 });
 
-// Getting all saved words
+
 chrome.storage.sync.get(stores => {
   wordsList = stores.wordly || [];
   wordsList.forEach(item => {
     wordsDict[item.word] = item.meaning;
   });
 });
+
 
 // Listening all messages
 chrome.runtime.onMessage.addListener(request => {
@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(request => {
 
   function showLoading() {
     const { word } = request;
-    const loadingLabel = "<div class='wordly_loader'></div>Loading...";
+    const loadingLabel = "<div class='wordly_loader'></div>";
     code = [
       'var d = document.createElement("div");',
       'd.setAttribute("id","wordly")',
@@ -51,11 +51,19 @@ chrome.runtime.onMessage.addListener(request => {
   function showMeaning() {
     const { word } = request;
 
+
     code = ['var d = document.getElementById("wordly")', `d.innerHTML="<span>${word}</span>${meaning}"`].join('\n');
+=======
+    code = [
+      'var d = document.getElementById("wordly")',
+      `d.innerHTML="<span>${word}</span><div class='word_meaning'>${meaning}</div>"`,
+    ].join('\n');
+
     isShown = true;
     sendCode(code);
 
     if (meaning !== NOT_FOUND_MEANING) {
+
       if (wordsList && wordsList.length) {
         var wordExits = false;
         for (var loop = 0; loop < wordsList.length; loop++) {
@@ -73,6 +81,21 @@ chrome.runtime.onMessage.addListener(request => {
 
       wordsDict[word] = meaning;
       chrome.storage.sync.set({ wordly: wordsList }, () => {});
+
+      // Need to run get before setting new word list in case of previous removals
+      chrome.storage.sync.get(stores => {
+        let wordsList = stores.wordly;
+        if (wordsList && wordsList.length) {
+          wordsList.push({ word, meaning });
+        } else {
+          wordsList = [];
+          wordsList.push({ word, meaning });
+        }
+
+        wordsDict[word] = meaning
+        chrome.storage.sync.set({ wordly: wordsList }, () => {});
+      });
+
     }
   }
 

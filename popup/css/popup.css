@@ -33,19 +33,49 @@ img {
   padding-left: 0;
 }
 
+.no-words {
+  background: -webkit-linear-gradient(left,#36d1dc,#5b86e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 18px;
+  font-weight: 400 !important;
+  text-align: center;
+}
+
 #wordlyWordsList li {
   border-bottom: solid 1px #ccc;
   font-weight: 300;
   margin: 5px 10px;
   padding: 10px 15px;
   padding-bottom: 15px;
+  position: relative;
+  transition: all 0.3s;
+}
+#wordlyWordsList li.removed {
+  opacity: 0;
 }
 
 #wordlyWordsList li:last-child {
   border-bottom: 0;
 }
 
+#wordlyWordsList .word-container {
+  width: 330px;
+}
+
 #wordlyWordsList li span {
   font-weight: 600;
   text-transform: capitalize;
+}
+
+#wordlyWordsList .icon-container {
+  width: 18px;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 0px;
+}
+
+#wordlyWordsList .icon-container img{
+  width: 100%;
 }
