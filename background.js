@@ -1,7 +1,7 @@
 let isShown = false;
 const appId = '49a3467d';
 const appKey = '4a16c9745036f8529e7b69f59634b696';
-const NOT_FOUND_MEANING = 'Definition not found'
+const NOT_FOUND_MEANING = 'Definition not found';
 
 const wordsDict = {};
 
@@ -10,6 +10,15 @@ const headers = new Headers({
   app_id: appId,
   app_key: appKey,
 });
+
+
+chrome.storage.sync.get(stores => {
+  wordsList = stores.wordly || [];
+  wordsList.forEach(item => {
+    wordsDict[item.word] = item.meaning;
+  });
+});
+
 
 // Listening all messages
 chrome.runtime.onMessage.addListener(request => {
@@ -42,14 +51,37 @@ chrome.runtime.onMessage.addListener(request => {
   function showMeaning() {
     const { word } = request;
 
+
+    code = ['var d = document.getElementById("wordly")', `d.innerHTML="<span>${word}</span>${meaning}"`].join('\n');
+=======
     code = [
       'var d = document.getElementById("wordly")',
       `d.innerHTML="<span>${word}</span><div class='word_meaning'>${meaning}</div>"`,
     ].join('\n');
+
     isShown = true;
     sendCode(code);
 
     if (meaning !== NOT_FOUND_MEANING) {
+
+      if (wordsList && wordsList.length) {
+        var wordExits = false;
+        for (var loop = 0; loop < wordsList.length; loop++) {
+          if (wordsList[loop].word === word) {
+            wordExits = true;
+          }
+        }
+        if (wordExits === false) {
+          wordsList.push({ word, meaning });
+        }
+      } else {
+        wordsList = [];
+        wordsList.push({ word, meaning });
+      }
+
+      wordsDict[word] = meaning;
+      chrome.storage.sync.set({ wordly: wordsList }, () => {});
+
       // Need to run get before setting new word list in case of previous removals
       chrome.storage.sync.get(stores => {
         let wordsList = stores.wordly;
@@ -63,17 +95,18 @@ chrome.runtime.onMessage.addListener(request => {
         wordsDict[word] = meaning
         chrome.storage.sync.set({ wordly: wordsList }, () => {});
       });
+
     }
   }
 
   if (request.word && !isShown) {
-    showLoading()
+    showLoading();
 
     // check if already have in local storage or not
     if (wordsDict[request.word] && wordsDict[request.word] !== NOT_FOUND_MEANING) {
-      meaning = wordsDict[request.word]
-      showMeaning()
-      return
+      meaning = wordsDict[request.word];
+      showMeaning();
+      return;
     }
 
     const url = 'https://od-api.oxforddictionaries.com/api/v1/';
