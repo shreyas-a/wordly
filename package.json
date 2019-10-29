@@ -5,7 +5,7 @@
   "main": "background.js",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^4.7.2",
+    "eslint": "^4.18.2",
     "prettier": "^1.5.2",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.7.0",
